@@ -1,28 +1,24 @@
-// services/speechService.js
+// speechService.js
+// Envia áudio para Azure Speech e retorna transcrição com diarização
 
-const SpeechRecognition = require('some-speech-recognition-library'); // Replace with actual library
+const axios = require('axios');
+const fs = require('fs');
+require('dotenv').config();
 
-const recognizeSpeech = (audioFile) => {
-    return new Promise((resolve, reject) => {
-        SpeechRecognition.recognize(audioFile, (error, result) => {
-            if (error) {
-                return reject(error);
-            }
-            resolve(result);
-        });
-    });
-};
-
-const transcribeAudio = async (audioFile) => {
-    try {
-        const transcription = await recognizeSpeech(audioFile);
-        return transcription;
-    } catch (error) {
-        throw new Error('Error transcribing audio: ' + error.message);
+async function transcribeAudio(filePath) {
+  const audio = fs.readFileSync(filePath);
+  const response = await axios.post(
+    'https://eastus.stt.speech.microsoft.com/speech/recognition/conversation/cognitiveservices/v1?language=pt-BR',
+    audio,
+    {
+      headers: {
+        'Ocp-Apim-Subscription-Key': process.env.SPEECH_KEY,
+        'Content-Type': 'audio/wav; codecs=audio/pcm; samplerate=16000',
+        'X-DiarizationEnabled': 'true'
+      }
     }
-};
+  );
+  return response.data;
+}
 
-module.exports = {
-    recognizeSpeech,
-    transcribeAudio,
-};
+module.exports = { transcribeAudio };

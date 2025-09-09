@@ -1,13 +1,20 @@
+// Prontuario.js
+// Exibe prontuário estruturado
+
 import React from 'react';
 
-const Prontuario = () => {
-    return (
-        <div>
-            <h1>Prontuário</h1>
-            <p>Este componente exibe um registro detalhado das interações do usuário.</p>
-            {/* Aqui você pode integrar outros componentes como Recorder, Transcription e Summary para exibir informações relevantes */}
-        </div>
-    );
-};
+function Prontuario({ prontuario }) {
+  return (
+    <div>
+      <h3>Prontuário</h3>
+      <ul>
+        <li><strong>Subjetivo:</strong> {prontuario.Subjetivo}</li>
+        <li><strong>Objetivo:</strong> {prontuario.Objetivo}</li>
+        <li><strong>Avaliação:</strong> {prontuario.Avaliacao}</li>
+        <li><strong>Plano:</strong> {prontuario.Plano}</li>
+      </ul>
+    </div>
+  );
+}
 
 export default Prontuario;

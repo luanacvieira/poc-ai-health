@@ -1,19 +1,15 @@
+// Transcription.js
+// Exibe transcrição em tempo real
+
 import React from 'react';
 
-const Transcription = ({ transcribedText, onEdit, onSave }) => {
-    return (
-        <div>
-            <h2>Transcription</h2>
-            <textarea 
-                value={transcribedText} 
-                onChange={(e) => onEdit(e.target.value)} 
-                rows="10" 
-                cols="50" 
-            />
-            <br />
-            <button onClick={onSave}>Save Transcription</button>
-        </div>
-    );
-};
+function Transcription({ text }) {
+  return (
+    <div>
+      <h3>Transcrição</h3>
+      <p>{text}</p>
+    </div>
+  );
+}
 
 export default Transcription;
